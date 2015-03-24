@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+
+while (<>) {
+	chomp;
+	(
+		$STOP_SEQ,
+		$STOP_ID,
+		$STOP_NAME,
+		$ON,
+		$OFF,
+		$LOAD,
+		$MO,
+		$DAY,
+		$YR,
+		$ROUTE,
+		$LATITUDE,
+		$LONGITUDE,
+		$TRIP_ID,
+		$DIR,
+		$VEHNO,
+		$TIMESTOP,
+		$TIMEDOORCLOSE,
+		$TIMEPULLOUT,
+		$TRIPCODE,
+		$TRIPSTOP,
+		$DOORDWELL,
+		$WAITDWELL
+	) = split(/,/);
+
+	($dh, $dm, $ds) = split(/:/, $DOORDWELL);
+	($wh, $wm, $ws) = split(/:/, $WAITDWELL);
+
+	$door = 3600 * $dh + 60 * $dm + $ds;
+	$wait = 3600 * $wh + 60 * $wm + $ws;
+
+	$mash1 = $ON + $OFF + rand(1);
+	$mash2 = $door + $wait + rand(1);
+
+	if ($mash1 >= 1 && $mash2 >= 1) {
+		print "$ON $OFF $door $wait $mash1 $mash2 ";
+		printf("%.6f %.6f\n", log($mash1), log($mash2));
+	}
+}

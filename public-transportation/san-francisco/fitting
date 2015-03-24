@@ -1,0 +1,10 @@
+f(x) = m * x + b
+
+fit f(x) "counts" using 7:8 via m, b
+
+# m               = 0.474825         +/- 0.002056     (0.433%)
+# b               = 2.85564          +/- 0.003278     (0.1148%)
+
+plot "counts" using 5:6 with dots, (x * exp(2.85564 ** 1/.47825)) ** .47825
+
+plot "counts" using 5:6 with dots, (392 * x) ** 0.47825
